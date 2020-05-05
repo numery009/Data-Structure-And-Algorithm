@@ -1,7 +1,7 @@
 # Implment Doubly Link List for Integer
 
 
-## 1) In first step we have to create a ListNode with following implmentation--
+## 1) In the first step we have to create a ListNode with the following implmentation--
 
 public class ListNode {
 
@@ -76,3 +76,7 @@ public class ListNode {
 	}
 
 }
+
+## 2) In the second steps we will Implement the Link List with the following methods--
+
+
