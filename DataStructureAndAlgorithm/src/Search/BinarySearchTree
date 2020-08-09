@@ -1,0 +1,125 @@
+package leetcode;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class BinarySearchTreee {
+
+	public static void main(String[] args) {
+		BinarySearchTreeee bST = new BinarySearchTreeee();
+
+		bST.add(3);
+		bST.add(9);
+		bST.add(20);
+
+		bST.add(15);
+		bST.add(7);
+		// bST.add(11);
+
+		bST.printAll();
+		System.out.println("Total Node - " + bST.size);
+		int totalDepth = Math.max(bST.leftH, bST.rightH) + 1;
+		System.out.println("Total Tree Depth- " + totalDepth);
+
+	}
+}
+
+class BinarySearchTreeee {
+	Tree root;
+
+	int size = 0;
+
+	int leftH = 0;
+	int rightH = 0;
+
+	public void add(int val) {
+
+		// Add by Recursive
+		// this.root = addR(this.root, val);
+		
+		this.root=addQ(this.root, val);
+
+	}
+
+	public Tree addR(Tree root, int val) {
+
+		if (root == null) {
+			root = new Tree(val);
+			size++;
+			return root;
+		}
+
+		if (val < root.val) {
+			root.left = addR(root.left, val);
+		} else {
+			root.right = addR(root.right, val);
+		}
+		return root;
+	}
+
+	public Tree addQ(Tree root, int val) {
+		if (root == null) {
+			root=new Tree(val);
+			size++;
+			return root;
+		}
+
+		Queue<Tree> q = new LinkedList<Tree>();
+		q.offer(root);
+
+		while (!q.isEmpty()) {
+			Tree newRoot = q.poll();
+		
+			if(newRoot.val>val) {
+				if(newRoot.left==null) {
+					newRoot.left=new Tree(val);
+					size++;
+				}
+				else
+					q.offer(newRoot.left);
+			}else {
+				if(newRoot.right==null) {
+					newRoot.right=new Tree(val);
+					size++;
+				}
+				else
+					q.offer(newRoot.right);
+			}
+			
+		}
+		return root;
+	}
+
+	public void printAll() {
+		PrintAllNode(this.root);
+	}
+
+	public void PrintAllNode(Tree root) {
+
+		if (root == null)
+			return;
+
+		if (root.left != null) {
+			this.leftH++;
+			PrintAllNode(root.left);
+
+		}
+		System.out.println(root.val + " ");
+
+		if (root.right != null) {
+			this.rightH++;
+			PrintAllNode(root.right);
+		}
+	}
+
+}
+
+class Tree {
+	int val;
+	Tree left, right;
+
+	public Tree(int val) {
+		this.val = val;
+		left = right = null;
+	}
+}
