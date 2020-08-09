@@ -98,12 +98,11 @@ class BinarySearchTreeee {
 
 		if (root == null)
 			return;
-
 		if (root.left != null) {
 			this.leftH++;
 			PrintAllNode(root.left);
-
 		}
+		
 		System.out.println(root.val + " ");
 
 		if (root.right != null) {
