@@ -8,19 +8,21 @@ public class BinarySearchTreee {
 	public static void main(String[] args) {
 		BinarySearchTreeee bST = new BinarySearchTreeee();
 
-		bST.add(3);
-		bST.add(9);
-		bST.add(20);
-
+		bST.add(10);
+		bST.add(5);
 		bST.add(15);
+
+		bST.add(3);
 		bST.add(7);
-		// bST.add(11);
+		bST.add(18);
 
 		bST.printAll();
 		System.out.println("Total Node - " + bST.size);
 		int totalDepth = Math.max(bST.leftH, bST.rightH) + 1;
 		System.out.println("Total Tree Depth- " + totalDepth);
-
+		
+		System.out.println("Sum of BST nodes " + bST.sumBetween(15, 7));
+		
 	}
 }
 
@@ -31,6 +33,8 @@ class BinarySearchTreeee {
 
 	int leftH = 0;
 	int rightH = 0;
+	
+	int total=0;
 
 	public void add(int val) {
 
@@ -90,6 +94,23 @@ class BinarySearchTreeee {
 		return root;
 	}
 
+	public int sumBetween(int r, int l) {
+		return this.sumBetweenNodes(this.root, r, l);
+	}
+	
+	public int sumBetweenNodes(Tree root, int r, int l) {
+		
+		if(root==null) return 0;
+		
+		if(root.val<=r && root.val>=l) 
+			total+=root.val;
+		if(root.val<r) sumBetweenNodes(root.right, r, l);
+		
+		if(root.val>l) sumBetweenNodes(root.left, r, l);
+		
+		return total;
+	}
+	
 	public void printAll() {
 		PrintAllNode(this.root);
 	}
@@ -98,11 +119,12 @@ class BinarySearchTreeee {
 
 		if (root == null)
 			return;
+
 		if (root.left != null) {
 			this.leftH++;
 			PrintAllNode(root.left);
+
 		}
-		
 		System.out.println(root.val + " ");
 
 		if (root.right != null) {
